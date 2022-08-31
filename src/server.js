@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const router = require('./routes/index');
 
 dotenv.config();
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(router);
 
 app.use((req, res) => {
   res.status(404).send({ status: 404, message: 'Not Found' });
