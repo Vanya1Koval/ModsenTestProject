@@ -5,9 +5,9 @@ module.exports = {
     return queryInterface.createTable('meetups', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       title: {
         allowNull: true,

@@ -2,16 +2,16 @@ const express = require('express');
 const {
     getAllMeetups, 
     getOneMeetup, 
-    createMeetup, 
-    updateMeetup, 
-    deleteMeetup
+    createMeetupAction, 
+    updateMeetupAction, 
+    deleteMeetupAction
   } = require('../controllers/meetup.controller');
 const router = express.Router();
 
 router.get('/', getAllMeetups);
 router.get('/:meetupId', getOneMeetup);
-router.post('/', createMeetup);
-router.put('/', updateMeetup);
-router.delete('/:meetupId', deleteMeetup);
+router.post('/', createMeetupAction);
+router.put('/:meetupId', updateMeetupAction);
+router.delete('/:meetupId', deleteMeetupAction);
 
 module.exports = router;

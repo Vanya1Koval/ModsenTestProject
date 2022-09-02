@@ -16,3 +16,4 @@ module.exports = {
     },
     dialectOptions: process.env.DATABASE_SSL_ENABLED === 'true' ? sslOptions : {}
 }
+
