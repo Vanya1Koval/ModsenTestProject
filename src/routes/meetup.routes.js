@@ -1,4 +1,5 @@
 const express = require('express');
+const validation = require('../middleware/validation');
 const {
   getAllMeetups,
   getOneMeetup,
@@ -10,8 +11,8 @@ const router = express.Router();
 
 router.get('/', getAllMeetups);
 router.get('/:meetupId', getOneMeetup);
-router.post('/', createMeetupAction);
-router.put('/:meetupId', updateMeetupAction);
+router.post('/', validation(), createMeetupAction);
+router.put('/:meetupId', validation(), updateMeetupAction);
 router.delete('/:meetupId', deleteMeetupAction);
 
 module.exports = router;
