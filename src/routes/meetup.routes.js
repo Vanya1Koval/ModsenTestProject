@@ -1,11 +1,11 @@
 const express = require('express');
 const {
-    getAllMeetups, 
-    getOneMeetup, 
-    createMeetupAction, 
-    updateMeetupAction, 
-    deleteMeetupAction
-  } = require('../controllers/meetup.controller');
+  getAllMeetups,
+  getOneMeetup,
+  createMeetupAction,
+  updateMeetupAction,
+  deleteMeetupAction
+} = require('../controllers/meetup.controller');
 const router = express.Router();
 
 router.get('/', getAllMeetups);
