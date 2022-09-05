@@ -9,9 +9,9 @@ const {
 } = require('../services/meetup.services');
 
 const getAllMeetups = async (req, res) => {
-    const { search, filter, sort } = req.query;
-    console.log(search, filter, sort)
-    const meetups = await findAllMeetups(search, filter, sort);
+    const { search, from, to,  sort, page, limit } = req.query;
+    const offset = 0 + (page - 1) * limit;
+    const meetups = await findAllMeetups( search, from, to,  sort, limit, offset );
     return res.send(meetups);
 };
 

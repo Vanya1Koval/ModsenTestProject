@@ -1,5 +1,6 @@
 const express = require('express');
 const validation = require('../middleware/validation');
+const queryValidation = require('../middleware/queryValidation');
 const {
   getAllMeetups,
   getOneMeetup,
@@ -9,7 +10,7 @@ const {
 } = require('../controllers/meetup.controller');
 const router = express.Router();
 
-router.get('/', getAllMeetups);
+router.get('/', queryValidation(), getAllMeetups);
 router.get('/:meetupId', getOneMeetup);
 router.post('/', validation(), createMeetupAction);
 router.put('/:meetupId', validation(), updateMeetupAction);

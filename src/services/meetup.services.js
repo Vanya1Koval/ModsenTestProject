@@ -2,12 +2,15 @@ const { Op } = require("sequelize");
 const { Meetup } = require('../db/models/');
 
 
-const findAllMeetups = async (search, filter, sort) => {
+const findAllMeetups = async (search, from, to,  sort, limit, offset) => {
     const meetups = Meetup.findAll({
+        limit: `${limit}`, 
+        offset:  `${offset}`,           
         where: {
             [Op.and]: [
                 search ? {title: {[Op.substring]: `${search}`}} : null,
-                filter ? {date: {[Op.gte]: `${filter}`}} : null,
+                from ? {date: {[Op.gte]: `${from}`}} : null,
+                to ? {date: {[Op.lte]: `${to}`}} : null,
             ]
         },    
         order: search ?[ ['date', `${sort}`] ] : null
