@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: null,
       },
-      isAdmin: {
+      is_admin: {
         allowNull: false,
         defaultValue: null,
         type: DataTypes.BOOLEAN
@@ -16,22 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: null,
-      },
-      tags: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null,
-      },
-      place: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
+      }
     }
   );
 

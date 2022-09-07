@@ -1,5 +1,8 @@
 'use strict';
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
+
+const salt = bcrypt.genSaltSync(10);
 
 module.exports = {
   up: (queryInterface) => {
@@ -7,32 +10,32 @@ module.exports = {
       {
         id: uuidv4(),
         username: 'Admin1',
-        isAdmin: true,
-        password: 'Admin1',
+        is_admin: true,
+        password: bcrypt.hashSync('Admin1', salt),
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: uuidv4(),
         username: 'Admin2',
-        isAdmin: true,
-        password: 'Admin2',
+        is_admin: true,
+        password: bcrypt.hashSync('Admin2', salt),
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: uuidv4(),
         username: 'User1',
-        isAdmin: false,
-        password: 'User1',
+        is_admin: false,
+        password: bcrypt.hashSync('User1', salt),
         created_at: new Date(),
         updated_at: new Date()
       },
       {
         id: uuidv4(),
         username: 'User2',
-        isAdmin: false,
-        password: 'User2',
+        is_admin: false,
+        password: bcrypt.hashSync('User2', salt),
         created_at: new Date(),
         updated_at: new Date()
       }
