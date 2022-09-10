@@ -15,8 +15,8 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        const existuser = await User.findOne({ where: { username: `${username}` }});
-        if (existuser) { 
+        const existuser = await User.findOne({ where: { username: `${username}` } });
+        if (existuser) {
           return done(null, false);
         }
         const id = uuidv4();
@@ -44,7 +44,7 @@ passport.use(
     async (username, password, done) => {
       console.log(username)
       try {
-        const user = await User.findOne({ where: { username: `${username}` }});
+        const user = await User.findOne({ where: { username: `${username}` } });
         if (!user) {
           return done(null, false, { message: 'User not found' });
         }

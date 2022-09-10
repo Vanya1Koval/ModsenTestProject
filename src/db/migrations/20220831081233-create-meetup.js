@@ -34,6 +34,16 @@ module.exports = {
         defaultValue: null,
         type: Sequelize.STRING
       },
+      creatorId: {
+        allowNull: true,
+        defaultValue: null,
+        type: Sequelize.STRING
+      },
+      membersId: {
+        allowNull: true,
+        defaultValue: null,
+        type: Sequelize.JSON
+      },
       created_at: {
         allowNull: true,
         defaultValue: null,
@@ -43,7 +53,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
- 
+
     })
   },
 

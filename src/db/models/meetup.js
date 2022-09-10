@@ -27,6 +27,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: null,
       },
+      creatorId: {
+        allowNull: false,
+        defaultValue: null,
+        type: DataTypes.STRING
+      },
+      membersId: {
+        allowNull: false,
+        defaultValue: null,
+        type: DataTypes.JSON
+      }
     }
   );
 

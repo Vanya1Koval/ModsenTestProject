@@ -5,7 +5,8 @@ const meetupSchema = joi.object({
     description: joi.string().min(3).required(), 
     tags: joi.string().min(3).required(), 
     date: joi.date().required(), 
-    place: joi.string().min(3).required()
+    place: joi.string().min(3).required(),
+    creatorId: joi.required()
 });
     
 const validation = () => async (req, res, next) => {
