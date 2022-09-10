@@ -1,6 +1,7 @@
 const express = require('express');
-const validation = require('../middleware/validation');
+const validation = require('../middleware/meetupValidation');
 const queryValidation = require('../middleware/queryValidation');
+const { isAuthenticated } = require('../middleware/checkToken');
 const {
   getAllMeetups,
   getOneMeetup,
@@ -10,10 +11,10 @@ const {
 } = require('../controllers/meetup.controller');
 const router = express.Router();
 
-router.get('/', queryValidation(), getAllMeetups);
-router.get('/:meetupId', getOneMeetup);
-router.post('/', validation(), createMeetupAction);
-router.put('/:meetupId', validation(), updateMeetupAction);
-router.delete('/:meetupId', deleteMeetupAction);
+router.get('/', isAuthenticated, queryValidation(), getAllMeetups);
+router.get('/:meetupId', isAuthenticated, getOneMeetup);
+router.post('/', isAuthenticated, validation(), createMeetupAction);
+router.put('/:meetupId', isAuthenticated, validation(), updateMeetupAction);
+router.delete('/:meetupId', isAuthenticated, deleteMeetupAction);
 
 module.exports = router;

@@ -16,8 +16,8 @@ module.exports = {
       },
       description: {
         allowNull: true,
-        type: Sequelize.STRING,
-        unique: true
+        defaultValue: null,
+        type: Sequelize.STRING
       },
       tags: {
         allowNull: true,

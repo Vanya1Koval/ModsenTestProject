@@ -12,6 +12,7 @@ module.exports = {
       username: {
         allowNull: false,
         defaultValue: null,
+        unique: true,
         type: Sequelize.STRING
       },
       is_admin: {
@@ -19,11 +20,17 @@ module.exports = {
         defaultValue: null,
         type: Sequelize.BOOLEAN
       },
+      token: {
+        allowNull: true,
+        defaultValue: null,
+        type: Sequelize.STRING
+      },
       password: {
         allowNull: false,
         defaultValue: null,
         type: Sequelize.STRING
       },
+
       created_at: {
         allowNull: true,
         defaultValue: null,
