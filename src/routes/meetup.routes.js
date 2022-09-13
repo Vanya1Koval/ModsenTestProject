@@ -17,4 +17,6 @@ router.post('/', isAuthenticated, validation(), createMeetupAction);
 router.put('/:meetupId', isAuthenticated, validation(), updateMeetupAction);
 router.delete('/:meetupId', isAuthenticated, deleteMeetupAction);
 
+//"username": "User1",
+
 module.exports = router;

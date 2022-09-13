@@ -18,7 +18,7 @@ const findAllMeetups = async (search, from, to,  sort, limit, offset) => {
     return meetups;
 }
 
-const findOneMeetupById = async (id) => Meetup.findOne({ where: { id } });
+const findOneMeetupById = async (id) => Meetup.findByPk(id);
 
 const createMeetup = async (payload) => Meetup.create(payload);
 
@@ -36,7 +36,20 @@ const updateMeetup = async (meetupId, title, description, tags, date, place, upd
             where: { id: `${meetupId}` },
         }
     );
+        console.log(updateMeetup)
+    return updatedMeetup[0];
+};
 
+const updateMembers = async (meetupId, Members, updated_at) => {
+    const updatedMeetup = await Meetup.update(
+        {
+            membersId: `${Members}`,
+            updated_at: `${updated_at}`
+        },
+        {
+            where: { id: `${meetupId}` },
+        }
+    );
     return updatedMeetup[0];
 };
 
@@ -54,5 +67,6 @@ module.exports = {
     findOneMeetupById,
     createMeetup,
     updateMeetup,
+    updateMembers,
     deleteMeetup
 };

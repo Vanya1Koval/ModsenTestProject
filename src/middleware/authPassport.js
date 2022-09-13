@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 const localStrategy = require('passport-local').Strategy;
 var User = require('../db/models').User;
-
 const salt = bcrypt.genSaltSync(10);
 
 passport.use(
@@ -15,8 +14,8 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        const existuser = await User.findOne({ where: { username: `${username}` } });
-        if (existuser) {
+        const existUser = await User.findOne({ where: { username: `${username}` } });
+        if (existUser) {
           return done(null, false);
         }
         const id = uuidv4();
@@ -25,10 +24,9 @@ passport.use(
         const created_at = new Date();
         const updated_at = new Date();
         const user = await User.create({ id, username, is_admin, password, created_at, updated_at });
-
-        return done(null, user);
+        return done(null, user, { message: 'Signup in Successfully' });
       } catch (error) {
-        done(error);
+        return done(error);
       }
     }
   )
@@ -42,15 +40,14 @@ passport.use(
       passwordField: 'password'
     },
     async (username, password, done) => {
-      console.log(username)
       try {
         const user = await User.findOne({ where: { username: `${username}` } });
         if (!user) {
-          return done(null, false, { message: 'User not found' });
+          return done(null, false);
         }
-        const validate = await bcrypt.compareSync(password, user.password);
+        const validate = bcrypt.compareSync(password, user.password);
         if (!validate) {
-          return done(null, false, { message: 'Wrong Password' });
+          return done(null, false);
         }
 
         return done(null, user, { message: 'Logged in Successfully' });

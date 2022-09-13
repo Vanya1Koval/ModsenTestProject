@@ -6,6 +6,7 @@ const userSchema = joi.object({
 });
     
 const validation = () => async (req, res, next) => {
+    console.log('validation')
     try {
         await userSchema.validateAsync(req.body);
         next();

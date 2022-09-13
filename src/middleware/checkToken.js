@@ -9,7 +9,7 @@ function isAuthenticated(req, res, next) {
         }
         token = token.split(" ")[1];
         const decoded = jwt.verify(token, "TOP_SECRET");
-        req.body.username = decoded.username;
+        req.header.username = decoded.username;
         next();
     } catch (error) {
         return res.status(401).json({ success: false, msg: error.message });

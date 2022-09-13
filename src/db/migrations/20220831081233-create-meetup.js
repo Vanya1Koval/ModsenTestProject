@@ -22,7 +22,7 @@ module.exports = {
       tags: {
         allowNull: true,
         defaultValue: null,
-        type: Sequelize.STRING
+        type: Sequelize.JSON
       },
       date: {
         allowNull: true,
@@ -34,12 +34,12 @@ module.exports = {
         defaultValue: null,
         type: Sequelize.STRING
       },
-      creatorId: {
+      creator_id: {
         allowNull: true,
         defaultValue: null,
         type: Sequelize.STRING
       },
-      membersId: {
+      members_id: {
         allowNull: true,
         defaultValue: null,
         type: Sequelize.JSON

@@ -5,13 +5,15 @@ const loginRouter = require('./login.routes');
 const signupRouter = require('./signup.routes');
 const refreshRouter = require('./refreshToken.routes');
 const userRouter = require('./user.routes');
+const meetupMemberRouter = require('./meetupMember.routes');
 
 const router = express.Router();
 
 router.use('/meetups', meetupRouter);
+router.use('/members', meetupMemberRouter);
 router.use('/login', loginRouter);
 router.use('/signup', signupRouter);
 router.use('/refresh', refreshRouter);
-router.use('/users', userRouter);
+router.use('/users', userRouter); 
 
 module.exports = router;

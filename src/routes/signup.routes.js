@@ -1,18 +1,9 @@
 const express = require('express');
-const passport = require('passport');
 const validation = require('../middleware/userValidation');
+const { signup } = require('../middleware/signup');
 
 const router = express.Router();
 
-router.post(
-    '/', validation(),
-    passport.authenticate('signup', { session: false }),
-    async (req, res, next) => {
-      res.json({
-        message: 'Signup successful',
-        user: req.user
-      });
-    }
-  );
+router.post('/', validation(), signup);
 
 module.exports = router;

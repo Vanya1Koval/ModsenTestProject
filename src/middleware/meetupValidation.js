@@ -3,10 +3,12 @@ const joi = require('joi');
 const meetupSchema = joi.object({ 
     title: joi.string().min(3).required(),
     description: joi.string().min(3).required(), 
-    tags: joi.string().min(3).required(), 
+    tagsArr: joi.array().required(), 
     date: joi.date().required(), 
     place: joi.string().min(3).required(),
-    creatorId: joi.required()
+    userId: joi.string().required(),
+    membersId: joi.string(),
+
 });
     
 const validation = () => async (req, res, next) => {
