@@ -3,31 +3,30 @@ const User = require('../db/models').User;
 
 const {
     findAllMeetups,
-    findOneMeetupById,
+    findMeetupById,
     createMeetup,
     updateMeetup,
     updateMembers,
     deleteMeetup
 } = require('../services/meetup.services');
 
-const getAllMeetups = async (req, res) => {
+const getMeetups = async (req, res) => {
     const { search, from, to, sort, page, limit } = req.query;
-    const offset = 0 + (page - 1) * limit;
+    const offset = (page - 1) * limit;
     const meetups = await findAllMeetups(search, from, to, sort, limit, offset);
     return res.send(meetups);
 };
 
-const getOneMeetup = async (req, res) => {
+const getMeetup = async (req, res) => {
     const { meetupId } = req.params;
-    const meetup = await findOneMeetupById(meetupId);
+    const meetup = await findMeetupById(meetupId);
     return res.send(meetup);
 };
 
 const createMeetupAction = async (req, res) => {
     try {
-        const { title, description, tagsArr, date, place, userId } = req.body;
-        const user = await User.findByPk(creatorId)
-        console.log(user)
+        const { title, description, tags, date, place, userId } = req.body;
+        const user = await User.findByPk(userId)
         if (!user) {
             return res.status(400).send({ status: 400, message: 'User doesn`t exist' });
         }
@@ -35,16 +34,16 @@ const createMeetupAction = async (req, res) => {
             return res.status(400).send({ status: 400, message: 'Only a user with admin rights can create meetups' });
         }
         const id = uuidv4();
-        const created_at = new Date();
-        const updated_at = new Date();
+        const currentDate = new Date();
+        const created_at = currentDate;
+        const updated_at = currentDate;
         const creatorId = userId;
-        const tags = JSON.stringify(tagsArr);
         const membersId = [];
 
         const createdMeetup = await createMeetup({
             title,
             description,
-            tags,
+            tags: JSON.stringify(tags),
             date,
             place,
             id,
@@ -64,22 +63,22 @@ const createMeetupAction = async (req, res) => {
 const updateMeetupAction = async (req, res) => {
     try {
         const { meetupId } = req.params;
-        const { title, description, tagsArr, date, place, userId } = req.body;
-        const meetup = await findOneMeetupById(meetupId);
+        const { title, description, tags, date, place, userId } = req.body;
+        const meetup = await findMeetupById(meetupId);
         if (!meetup) {
             return res.status(400).send({ status: 400, message: 'Meetup with enterd id does not exist' });
         }
         if (meetup.creatorId !== userId) {
             return res.status(400).send({ status: 400, message: 'Only its creator can change the mitap' });
         }
-        const tags = JSON.stringify(tagsArr);
+
         const updated_at = new Date();
 
         const updatedMeetup = await updateMeetup(
             meetupId,
             title,
             description,
-            tags,
+            JSON.stringify(tags),
             date,
             place,
             updated_at
@@ -102,17 +101,17 @@ const addMember = async (req, res) => {
         const { meetupId } = req.params;
         const { userId } = req.body;
         const updated_at = new Date();
-        const meetup = await findOneMeetupById(meetupId);
-        const newMembersArr = JSON.parse(meetup.membersId);
-        const alredyExist = meetup.membersId.includes(userId);
-        if (alredyExist) {
+        const meetup = await findMeetupById(meetupId);
+        let memberIds;
+        meetup.membersId[0] ? memberIds = JSON.parse(meetup.membersId) : memberIds = meetup.membersId;
+        const memberExists = memberIds.includes(userId);
+        if (memberExists) {
             return res.status(400).send({ status: 400, message: `User is already a member` });
         }
-        newMembersArr.push(userId);
-        const Members = JSON.stringify(newMembersArr);
+        memberIds.push(userId);
         const updatedMeetup = await updateMembers(
             meetupId,
-            Members,
+            JSON.stringify(memberIds),
             updated_at
         );
         if (updatedMeetup) {
@@ -131,7 +130,7 @@ const deleteMeetupAction = async (req, res) => {
     try {
         const { meetupId } = req.params;
         const { userId } = req.body;
-        const meetup = await findOneMeetupById(meetupId);
+        const meetup = await findMeetupById(meetupId);
         if (!meetup) {
             return res.status(400).send({ status: 400, message: 'Meetup with enterd id does not exist' });
         }
@@ -150,4 +149,4 @@ const deleteMeetupAction = async (req, res) => {
     }
 };
 
-module.exports = { getAllMeetups, getOneMeetup, createMeetupAction, updateMeetupAction, deleteMeetupAction, addMember };
+module.exports = { getMeetups, getMeetup, createMeetupAction, updateMeetupAction, deleteMeetupAction, addMember };

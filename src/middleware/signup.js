@@ -3,7 +3,7 @@ const passport = require('passport');
 const signup = (req, res, next) => {
     passport.authenticate(
         'signup',
-        async (err, user, info) => {
+        async (err, user) => {
             try {
                 if (err || !user) {
                     const error = new Error('An error occurred.');

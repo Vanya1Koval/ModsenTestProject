@@ -1,9 +1,7 @@
 const express = require('express');
-const { tokenRefresh } = require('../middleware/refreshToken.js');
-
-
+const { refreshToken } = require('../middleware/refreshToken.js');
 const router = express.Router();
 
-router.post("/", tokenRefresh)
+router.post("/", refreshToken)
 
 module.exports = router;

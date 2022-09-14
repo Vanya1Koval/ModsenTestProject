@@ -14,17 +14,17 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        const existUser = await User.findOne({ where: { username: `${username}` } });
-        if (existUser) {
+        const userExists = await User.findOne({ where: { username } });
+        if (userExists) {
           return done(null, false);
         }
         const id = uuidv4();
         const is_admin = false;
-        password = bcrypt.hashSync(`${password}`, salt);
+        password = bcrypt.hashSync(password, salt);
         const created_at = new Date();
         const updated_at = new Date();
         const user = await User.create({ id, username, is_admin, password, created_at, updated_at });
-        return done(null, user, { message: 'Signup in Successfully' });
+        return done(null,{ message: 'Signup in Successfully' });
       } catch (error) {
         return done(error);
       }
@@ -41,7 +41,7 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        const user = await User.findOne({ where: { username: `${username}` } });
+        const user = await User.findOne({ where: { username } });
         if (!user) {
           return done(null, false);
         }

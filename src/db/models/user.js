@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       is_admin: {
         allowNull: false,
-        defaultValue: null,
+        defaultValue: false,
         type: DataTypes.BOOLEAN
       },
       password: {

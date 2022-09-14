@@ -1,62 +1,59 @@
 const { Op } = require("sequelize");
 const { Meetup } = require('../db/models/');
 
-
 const findAllMeetups = async (search, from, to,  sort, limit, offset) => {
     const meetups = Meetup.findAll({
-        limit: `${limit}`, 
-        offset:  `${offset}`,           
+        limit, 
+        offset,           
         where: {
             [Op.and]: [
-                search ? {title: {[Op.substring]: `${search}`}} : null,
-                from ? {date: {[Op.gte]: `${from}`}} : null,
-                to ? {date: {[Op.lte]: `${to}`}} : null,
+                search ? {title: {[Op.substring]: search}} : null,
+                from ? {date: {[Op.gte]: from}} : null,
+                to ? {date: {[Op.lte]: to}} : null,
             ]
         },    
-        order: search ?[ ['date', `${sort}`] ] : null
+        order: sort ? [ ['date', sort] ] : null
     });
     return meetups;
 }
 
-const findOneMeetupById = async (id) => Meetup.findByPk(id);
+const findMeetupById = async (id) => Meetup.findByPk(id);
 
 const createMeetup = async (payload) => Meetup.create(payload);
 
 const updateMeetup = async (meetupId, title, description, tags, date, place, updated_at) => {
     const updatedMeetup = await Meetup.update(
         {
-            title: `${title}`,
-            description: `${description}`,
-            tags: `${tags}`,
-            date: `${date}`,
-            place: `${place}`,
-            updated_at: `${updated_at}`
+            title,
+            description,
+            tags,
+            date,
+            place,
+            updated_at
         },
         {
-            where: { id: `${meetupId}` },
+            where: { id: meetupId },
         }
     );
-        console.log(updateMeetup)
     return updatedMeetup[0];
 };
 
-const updateMembers = async (meetupId, Members, updated_at) => {
-    const updatedMeetup = await Meetup.update(
+const updateMembers = async (meetupId, memberIds, updated_at) => {
+    const updatedMember = await Meetup.update(
         {
-            membersId: `${Members}`,
-            updated_at: `${updated_at}`
+            membersId: memberIds,
+            updated_at
         },
         {
-            where: { id: `${meetupId}` },
+            where: { id: meetupId },
         }
     );
-    return updatedMeetup[0];
+    return updatedMember[0];
 };
 
 const deleteMeetup = async (meetupId) => {
-
     const deletedMeetup = await Meetup.destroy({
-        where: { id: `${meetupId}` },
+        where: { id: meetupId },
     });
 
     return deletedMeetup;
@@ -64,7 +61,7 @@ const deleteMeetup = async (meetupId) => {
 
 module.exports = {
     findAllMeetups,
-    findOneMeetupById,
+    findMeetupById,
     createMeetup,
     updateMeetup,
     updateMembers,
