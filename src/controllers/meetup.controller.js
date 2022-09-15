@@ -102,6 +102,9 @@ const addMember = async (req, res) => {
         const { userId } = req.body;
         const updated_at = new Date();
         const meetup = await findMeetupById(meetupId);
+        if (!meetup){
+            return res.status(400).send({ status: 400, message: 'Meetup with enterd id does not exist' });
+        }
         let memberIds;
         meetup.membersId[0] ? memberIds = JSON.parse(meetup.membersId) : memberIds = meetup.membersId;
         const memberExists = memberIds.includes(userId);
@@ -130,6 +133,7 @@ const deleteMeetupAction = async (req, res) => {
     try {
         const { meetupId } = req.params;
         const { userId } = req.body;
+        console.log(meetupId, req.body)
         const meetup = await findMeetupById(meetupId);
         if (!meetup) {
             return res.status(400).send({ status: 400, message: 'Meetup with enterd id does not exist' });

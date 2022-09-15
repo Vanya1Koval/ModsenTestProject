@@ -14,6 +14,15 @@ module.exports = {
         description: "Deleting a done meetup",
       },
     ],
+    requestBody: {
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/userIdInput",
+          },
+        },
+      },
+    },
     responses: {
       200: {
         description: "Meetup deleted successfully",

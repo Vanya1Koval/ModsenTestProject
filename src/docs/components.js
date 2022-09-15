@@ -156,7 +156,7 @@ module.exports = {
       userIdInput: {
         type: "object",
         properties: {
-          userID: {
+          userId: {
             type: "string",
             description: "id",
             example: "5e3933de-a4e5-4535-b75c-51006a1660f4",
