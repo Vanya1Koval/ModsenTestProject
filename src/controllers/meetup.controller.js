@@ -133,7 +133,6 @@ const deleteMeetupAction = async (req, res) => {
     try {
         const { meetupId } = req.params;
         const { userId } = req.body;
-        console.log(meetupId, req.body)
         const meetup = await findMeetupById(meetupId);
         if (!meetup) {
             return res.status(400).send({ status: 400, message: 'Meetup with enterd id does not exist' });
